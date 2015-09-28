@@ -9,6 +9,6 @@
 
 #MSUB -N multicram
 
-srun -n8 --multi-prog /g/g19/lavin2/multicram/multi.conf
+srun -n12 --multi-prog /g/g19/lavin2/multicram/multi.conf
 ##srun -n8 /g/g19/lavin2/multicram/bin/hello
 ##mpirun -n 4 /g/g19/lavin2/multicram/bin/hello : -n 4 /g/g19/lavin2/multicram/bin/hello2

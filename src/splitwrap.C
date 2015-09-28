@@ -45,12 +45,44 @@ _EXTERN_C_ int PMPI_Init(int *argc, char ***argv);
 _EXTERN_C_ int MPI_Init(int *argc, char ***argv) { 
     int _wrap_py_return_val = 0;
 {
+  FILE * fp;					//open multi.conf
+  fp = fopen("/g/g19/lavin2/multicram/multi.conf", "r");
+
+  int a, b;
+  char junk;
+  char line[1024];
+  int max[100];
+  int len;
+  int i = 0;
+
+  while(fgets(line, sizeof line, fp) ) {	//find the max values
+    if( sscanf(line, "%d %c %d", &a, &junk, &b) == 3 ){
+      max[i] = b+1;
+      i++;
+    }
+    else{
+      printf("Possible in error in scan?\n");
+      break;
+    }
+  }
+  len = i;
+
   _wrap_py_return_val = PMPI_Init(argc, argv);					//first call PMPI_Init()
 
   int rank;					//get process rank
   PMPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  int color = ((rank < 4) ? 1 : 2);		//separate processes into groups !!Generalize this!!
+  i = 0;
+  int color;
+  while(i < len){
+    if (rank < max[i]){
+      color = i;
+      break;
+    }else{
+      i++;
+    }
+  }
+
   PMPI_Comm_split(MPI_COMM_WORLD, color, rank, &splitcomm);
   
 }    return _wrap_py_return_val;

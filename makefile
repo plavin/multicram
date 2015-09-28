@@ -1,5 +1,6 @@
 wrapper: wrap.w
 	python wrap/wrap.py -o src/wrap.c wrap.w
+
 wrapper2: wrap2.w
 	python wrap/wrap.py -o src/splitwrap.C wrap2.w
 	mpicc -c src/splitwrap.C -o lib/splitwrap.o -w
@@ -9,6 +10,7 @@ wrapper2: wrap2.w
 hello:  src/mpi_hello.c
 	mpicc -o bin/hello src/mpi_hello.c lib/libsplitwrap.a -lstdc++
 	cp bin/hello bin/hello2
+	cp bin/hello bin/hello3
 submit:
 	msub moab/moab.sh
 all:
