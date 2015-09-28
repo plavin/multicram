@@ -28,11 +28,12 @@ inline void swap_world(MPI_Comm& world) {
    int rank;
    PMPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
+   int err = 0;
    int group = rank/4;
-   // now keep only the first 48 ranks of each 64.
-   //int keep = (rank % 64 < 48) ? 1: 0;
    if(group==0){
-      PMPI_Comm_split(MPI_COMM_WORLD,  group, rank, &comm1);
+      if(PMPI_Comm_split(MPI_COMM_WORLD,  group, rank, &comm1)){
+           printf("ERROR: 1\n");
+      }
    }else{
       PMPI_Comm_split(MPI_COMM_WORLD,  group, rank, &comm2);
    }
