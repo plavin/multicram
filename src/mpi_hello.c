@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main(int argc, char** argv) {
-  MPI_Init(NULL, NULL);
+  MPI_Init(&argc, &argv);
   
   int world_size;
   MPI_Comm_size(MPI_COMM_WORLD, &world_size);
@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
   MPI_Get_processor_name(processor_name, &name_len);
 
   printf("Hello world from processor %s, rank %d"
-	 " out of %d processors,%s, bin: %s\n",
+	 " out of %d processors, bin: %s\n",
 	 processor_name, world_rank, world_size, argv[0]);
   
   MPI_Finalize();
