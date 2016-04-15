@@ -1,4 +1,4 @@
-# ${1:Multicram}
+# Multicram
 
 Inspired by Todd Gamblin's Cram, (and possibly a reimplementation of a CRAM feature), this program allows multiple MPI jobs to be run next to each other on a cluster, each with their own communicator. The jobs can be different executables and can each use a different number of ranks. 
 
